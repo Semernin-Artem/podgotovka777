@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            display: inline-block;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #ff5555; /* Красный цвет для кнопки "Delete user" */
+            color: white;
+            border-radius: 4px;
+        }
+
+        .btn-delete:hover {
+            background-color: #ff0000; /* Темно-красный цвет при наведении */
+        }
+
+        .btn-edit {
+            display: inline-block;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #5555ff; /* Синий цвет для кнопки "Edit user" */
+            color: white;
+            border-radius: 4px;
+        }
+
+        .btn-edit:hover {
+            background-color: #0000ff; /* Темно-синий цвет при наведении */
+        }
+
+        .btn-add {
+            display: inline-block;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #ff9900; /* Оранжевый цвет для кнопки "Add user" */
+            color: white;
+            border-radius: 4px;
+        }
+
+        .btn-add:hover {
+            background-color: #ff6600; /* Темно-оранжевый цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+<form method="get" th:action="@{/all}">
+    <input placeholder="Value" type="text" name="name">
+    <input type="submit" value="Search"/>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td>
+            <a class="btn-delete" th:href="@{/delete-user/{id}(id=${user.id})}">Delete user</a>
+            <a class="btn-edit" th:href="@{/edit-user/{id}(id=${user.id})}">Edit user</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a class="btn-add" th:href="@{/form-add}">Add user</a>
+</body>
+</html>
